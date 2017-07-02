@@ -50,7 +50,10 @@ public class CLIDemo {
         options.addOption("-version", "show version messages");
         
         if(hasOption(arguments, options, "-help")) {
-            out.println("show help");
+            out.println("Help   ");
+            options.options.forEach((name, option) -> {
+                out.printf("\t%-10s\t%s%n", option.name, option.description);
+            });
         } 
         
         if(hasOption(arguments, options, "-version")) {
