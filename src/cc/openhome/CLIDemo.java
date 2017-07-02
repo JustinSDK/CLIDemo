@@ -18,15 +18,21 @@ public class CLIDemo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String[] arguments = {"-version"};
+        String[] arguments = {"-help"};
         commandLine(arguments);
     }
 
     public static void commandLine(String[] arguments)  {
-        if(arguments.length != 0 && "-help".equals(arguments[0])) {
+        if(hasOption(arguments, "-help")) {
             out.println("show help");
-        } else if(arguments.length != 0 && "-version".equals(arguments[0])) {
+        } else if(hasOption(arguments, "-version")) {
             out.println("show version");
         }
+    }
+    
+    public static boolean hasOption(String[] arguments, String option) {
+        if(arguments.length == 0) return false;
+        
+        return option.equals(arguments[0]);
     }
 }
