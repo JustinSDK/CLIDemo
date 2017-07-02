@@ -6,6 +6,7 @@
 package cc.openhome;
 
 import static java.lang.System.out;
+import java.util.*;
 
 class Option {
     String name;
@@ -33,18 +34,22 @@ public class CLIDemo {
     }
 
     public static void commandLine(String[] arguments)  {
-        if(hasOption(arguments, new Option("-help", "show help messages"))) {
+        Map<String, Option> options = new HashMap<>();
+        options.put("-help", new Option("-help", "show help messages"));
+        options.put("-version", new Option("-version", "show version messages"));
+        
+        if(hasOption(arguments, options, "-help")) {
             out.println("show help");
         } 
         
-        if(hasOption(arguments,  new Option("-version", "show version messages"))) {
+        if(hasOption(arguments, options, "-version")) {
             out.println("show version");
         }
     }
     
-    public static boolean hasOption(String[] arguments, Option option) {
+    public static boolean hasOption(String[] arguments, Map<String, Option> options,  String option) {
         for(String arg : arguments) {
-            if(option.name.equals(arg)) {
+            if(options.get(option).name.equals(arg)) {
                 return true;
             }
         }
