@@ -61,6 +61,15 @@ class POSIXCommandLine implements CommandLine {
         return false;
     }    
 }
+
+class HelpFormatter {
+    public void printHelp(String title, Options options) {
+        out.println(title);
+        options.options.forEach((name, option) -> {
+            out.printf("\t%-10s\t%s%n", option.name, option.description);
+        });        
+    }
+}
 /**
  *
  * @author Justin
@@ -86,10 +95,8 @@ public class CLIDemo {
         CommandLine cmd = parser.parse(arguments, options);
         
         if(cmd.hasOption("help")) {
-            out.println("Help   ");
-            options.options.forEach((name, option) -> {
-                out.printf("\t%-10s\t%s%n", option.name, option.description);
-            });
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("Help", options);
         } 
         
         if(cmd.hasOption("version")) {
