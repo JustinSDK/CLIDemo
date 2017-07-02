@@ -7,6 +7,16 @@ package cc.openhome;
 
 import static java.lang.System.out;
 
+class Option {
+    String name;
+    String description;
+
+    public Option(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+}
+
 /**
  *
  * @author Justin
@@ -23,19 +33,18 @@ public class CLIDemo {
     }
 
     public static void commandLine(String[] arguments)  {
-        if(hasOption(arguments, "-help")) {
+        if(hasOption(arguments, new Option("-help", "show help messages"))) {
             out.println("show help");
         } 
         
-        if(hasOption(arguments, "-version")) {
+        if(hasOption(arguments,  new Option("-version", "show version messages"))) {
             out.println("show version");
         }
     }
     
-    public static boolean hasOption(String[] arguments, String option) {
-        
+    public static boolean hasOption(String[] arguments, Option option) {
         for(String arg : arguments) {
-            if(option.equals(arg)) {
+            if(option.name.equals(arg)) {
                 return true;
             }
         }
