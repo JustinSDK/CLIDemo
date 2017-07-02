@@ -34,6 +34,15 @@ interface CommandLine {
      public boolean hasOption(String option);
 }
 
+class Parser {
+    public CommandLine parse(String[] arguments, Options options) {
+        if(arguments.length != 0 && arguments[0].startsWith("-")) {
+            return new POSIXCommandLine(arguments, options);
+        }
+        throw new RuntimeException("unknown commandline style");
+    }
+}
+
 class POSIXCommandLine implements CommandLine {
     String[] arguments;
     Options options;
@@ -72,7 +81,9 @@ public class CLIDemo {
         options.addOption("help", "show help messages");
         options.addOption("version", "show version messages");
         
-        POSIXCommandLine cmd = new POSIXCommandLine(arguments, options);
+        Parser parser = new Parser();
+        
+        CommandLine cmd = parser.parse(arguments, options);
         
         if(cmd.hasOption("help")) {
             out.println("Help   ");
