@@ -30,7 +30,11 @@ class Options {
     }
 }
 
-class POSIXCommandLine {
+interface CommandLine {
+     public boolean hasOption(String option);
+}
+
+class POSIXCommandLine implements CommandLine {
     String[] arguments;
     Options options;
 
