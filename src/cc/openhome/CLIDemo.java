@@ -18,6 +18,17 @@ class Option {
     }
 }
 
+class Options {
+    Map<String, Option> options = new HashMap<>();
+    
+    public void addOption(String name, String description) {
+        options.put(name, new Option(name, description));
+    } 
+    
+    public Option getOption(String name) {
+        return options.get(name);
+    }
+}
 /**
  *
  * @author Justin
@@ -34,9 +45,9 @@ public class CLIDemo {
     }
 
     public static void commandLine(String[] arguments)  {
-        Map<String, Option> options = new HashMap<>();
-        options.put("-help", new Option("-help", "show help messages"));
-        options.put("-version", new Option("-version", "show version messages"));
+        Options options = new Options();
+        options.addOption("-help", "show help messages");
+        options.addOption("-version", "show version messages");
         
         if(hasOption(arguments, options, "-help")) {
             out.println("show help");
@@ -47,9 +58,9 @@ public class CLIDemo {
         }
     }
     
-    public static boolean hasOption(String[] arguments, Map<String, Option> options,  String option) {
+    public static boolean hasOption(String[] arguments, Options options,  String option) {
         for(String arg : arguments) {
-            if(options.get(option).name.equals(arg)) {
+            if(options.getOption(option).name.equals(arg)) {
                 return true;
             }
         }
