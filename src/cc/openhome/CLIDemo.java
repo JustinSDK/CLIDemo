@@ -30,11 +30,11 @@ class Options {
     }
 }
 
-class CommandLine {
+class POSIXCommandLine {
     String[] arguments;
     Options options;
 
-    public CommandLine(String[] arguments, Options options) {
+    public POSIXCommandLine(String[] arguments, Options options) {
         this.arguments = arguments;
         this.options = options;
     }
@@ -68,7 +68,7 @@ public class CLIDemo {
         options.addOption("help", "show help messages");
         options.addOption("version", "show version messages");
         
-        CommandLine cmd = new CommandLine(arguments, options);
+        POSIXCommandLine cmd = new POSIXCommandLine(arguments, options);
         
         if(cmd.hasOption("help")) {
             out.println("Help   ");
