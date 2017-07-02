@@ -29,6 +29,25 @@ class Options {
         return options.get(name);
     }
 }
+
+class CommandLine {
+    String[] arguments;
+    Options options;
+
+    public CommandLine(String[] arguments, Options options) {
+        this.arguments = arguments;
+        this.options = options;
+    }
+    
+    public boolean hasOption(String option) {
+        for(String arg : arguments) {
+            if(("-" + options.getOption(option).name).equals(arg)) {
+                return true;
+            }
+        }
+        return false;
+    }    
+}
 /**
  *
  * @author Justin
@@ -49,24 +68,17 @@ public class CLIDemo {
         options.addOption("help", "show help messages");
         options.addOption("version", "show version messages");
         
-        if(hasOption(arguments, options, "help")) {
+        CommandLine cmd = new CommandLine(arguments, options);
+        
+        if(cmd.hasOption("help")) {
             out.println("Help   ");
             options.options.forEach((name, option) -> {
                 out.printf("\t%-10s\t%s%n", option.name, option.description);
             });
         } 
         
-        if(hasOption(arguments, options, "version")) {
+        if(cmd.hasOption("version")) {
             out.println("show version");
         }
-    }
-    
-    public static boolean hasOption(String[] arguments, Options options,  String option) {
-        for(String arg : arguments) {
-            if(("-" + options.getOption(option).name).equals(arg)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
