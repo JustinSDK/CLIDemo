@@ -46,24 +46,24 @@ public class CLIDemo {
 
     public static void commandLine(String[] arguments)  {
         Options options = new Options();
-        options.addOption("-help", "show help messages");
-        options.addOption("-version", "show version messages");
+        options.addOption("help", "show help messages");
+        options.addOption("version", "show version messages");
         
-        if(hasOption(arguments, options, "-help")) {
+        if(hasOption(arguments, options, "help")) {
             out.println("Help   ");
             options.options.forEach((name, option) -> {
                 out.printf("\t%-10s\t%s%n", option.name, option.description);
             });
         } 
         
-        if(hasOption(arguments, options, "-version")) {
+        if(hasOption(arguments, options, "version")) {
             out.println("show version");
         }
     }
     
     public static boolean hasOption(String[] arguments, Options options,  String option) {
         for(String arg : arguments) {
-            if(options.getOption(option).name.equals(arg)) {
+            if(("-" + options.getOption(option).name).equals(arg)) {
                 return true;
             }
         }
